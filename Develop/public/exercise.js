@@ -1,4 +1,3 @@
-//takes all the user input value via class or id
 const workoutTypeSelect = document.querySelector("#type");
 const cardioForm = document.querySelector(".cardio-form");
 const resistanceForm = document.querySelector(".resistance-form");
@@ -14,17 +13,13 @@ const completeButton = document.querySelector("button.complete");
 const addButton = document.querySelector("button.add-another");
 const toast = document.querySelector("#toast");
 const newWorkout = document.querySelector(".new-workout")
-//sets workoutType's default value to null
+
 let workoutType = null;
-//set's shouldNavigateAway's default value to false
 let shouldNavigateAway = false;
 
-//a new function 
 async function initExercise() {
   let workout;
-//that states if there is no data when checked, to create a 
-//new workout, but if there is value, returns all workouts by id
-//and workout._id
+
   if (location.search.split("=")[1] === undefined) {
     workout = await API.createWorkout()
     console.log(workout)
@@ -35,14 +30,11 @@ async function initExercise() {
 
 }
 
-//calls the initexercise function
 initExercise();
-//new function
+
 function handleWorkoutTypeChange(event) {
-  //sets workoutType to the user input 
   workoutType = event.target.value;
-//tells the computer what kind of exercise the user has chosen,
-//and adds or removed classes accordingly
+
   if (workoutType === "cardio") {
     cardioForm.classList.remove("d-none");
     resistanceForm.classList.add("d-none");
@@ -54,14 +46,12 @@ function handleWorkoutTypeChange(event) {
     resistanceForm.classList.add("d-none");
   }
 
-//calls the validateInputs function
   validateInputs();
 }
 
 function validateInputs() {
-  //sets isValid's default value to true
   let isValid = true;
-  //checks for valid inputs
+
   if (workoutType === "resistance") {
     if (nameInput.value.trim() === "") {
       isValid = false;
@@ -95,17 +85,16 @@ function validateInputs() {
       isValid = false;
     }
   }
-//if all validity functionality is met, removed disabled attribute
+
   if (isValid) {
     completeButton.removeAttribute("disabled");
     addButton.removeAttribute("disabled");
-    //otherwise, set disabled to true
   } else {
     completeButton.setAttribute("disabled", true);
     addButton.setAttribute("disabled", true);
   }
 }
-//
+
 async function handleFormSubmit(event) {
   event.preventDefault();
 
